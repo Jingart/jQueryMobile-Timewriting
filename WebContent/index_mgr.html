@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+ <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=10 user-scalable=no" /> 
+
+	
+    <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.1.0.css">
+     
+    <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+
+    <script type="text/javascript">
+        /*$(document).bind('mobileinit',function(){
+        	$.mobile.selectmenu.prototype.options.nativeMenu = false;
+    	});*/
+    </script>
+
+    <script type="text/javascript" src="js/jquery.mobile-1.1.0-rc.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
+    <link rel="stylesheet" type="text/css" href="js/css_mob_test.css" />
+    
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/dates.js"></script>
+    <script type="text/javascript" src="js/graph.js"></script>
+    <script type="text/javascript" src="js/index_mgr_load.js"></script>
+    
+    <script type="text/javascript" src="js/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="js/jqplot.json2.js"></script>
+    <script type="text/javascript" src="js/jqplot.pieRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasAxisLabelRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasTextRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasAxisTickRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.categoryAxisRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.dateAxisRenderer.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
+
+
+    <title>Missing Timewriting</title>
+    
+    <style type="text/css">
+
+		
+	</style>
+
+	<script>
+
+	</script>
+
+
+    </head>
+    
+
+    <body class="bspBody1">
+
+        <div data-role="page" data-theme="a" id="home">
+        	
+          <div data-role="header" data-position="fixed">
+          	<h1>Missing Timewriting</h1>
+          	<a href="help.html" data-rel="dialog" data-transition="pop" data-icon="help"> <!--data-iconpos="notext"-->Help</a>   
+          </div>
+		
+			<div data-role="content">
+				
+				<div data-role="fieldcontain">
+					<div id="employeeData">									
+						<div>
+							<img style="float: right;" src="/missing_timewriting/js/images/statoil_vertical_neg_80x40.png"/>
+							
+							<strong>Manager</strong>
+							<br>
+							<ul>
+								<li id="perno_mgr">Pnumber: </li>
+								<li id="name_mgr">Name: </li>
+								<li id="position_mgr">Orgunit: </li>
+							</ul>
+																			
+						</div>	
+					</div>				
+				</div>
+								
+				<br>
+				
+				<div id="listdiv">
+					
+					<ul id="emplistview" data-role="listview"></ul>
+					
+				</div>
+
+
+			</div>
+         
+    	</div><!--Home-->
+    	
+    	
+    	
+    	
+    	<div data-role="page" data-theme="a" id="calendarview">
+        	
+          <div data-role="header" data-position="fixed">
+          	<a href="#home" data-rel="home" data-icon="home">Home</a>   
+          	<h1>Missing Timewriting</h1>
+          	<a href="help.html" data-rel="dialog" data-transition="pop" data-icon="help"> <!--data-iconpos="notext"-->Help</a>   
+          </div>
+		
+			<div data-role="content">
+				
+				<div data-role="fieldcontain">
+					<div id="employeeData">									
+						<div>
+							<img style="float: right;" src="/missing_timewriting/js/images/statoil_vertical_neg_80x40.png"/>
+							
+							<strong>Employee</strong>
+							<br>
+							<ul>
+								<li id="perno_emp">Pnumber: </li>
+								<li id="name_emp">Name: </li>
+								<li id="position_emp">Name: </li>
+							</ul>
+																			
+						</div>	
+					</div>				
+				</div>
+				
+							
+				<div id="postdiv" data-role="controlgroup" data-type="horizontal">
+						<button onClick="displayPreviousMonth()" style="float: right;" data-icon="arrow-l" data-iconpos="notext"></button>			
+						<button onClick="displayNextMonth()" style="float: right;" data-icon="arrow-r" data-iconpos="notext"></button>
+				</div>
+				
+				<!--<button onClick="getDateWorkData('20120113')" data-icon="arrow-l">tst</button>-->
+				
+				<div id="calendardiv" data-theme="a">
+					<script type="text/javascript">
+					/*
+					  $.mobile.showPageLoadingMsg();
+	
+					  var cal = new Calendar();
+					  cal.generateHTML();
+					  							  
+					  document.write(cal.getHTML());
+					  $('#calendartable').hide();
+						
+					  //getWorkData(getDateString(cal_initial_date));
+					  
+					  $.mobile.hidePageLoadingMsg();
+					  		*/
+					</script>
+				</div>
+
+
+			</div>
+         
+    	</div><!--empview-->
+    	
+    	
+    	
+    	
+    	
+    	<div data-role="page" data-theme="a" id="daypage">
+        	
+          <div data-role="header" data-position="fixed">
+          	<h1 id="dateheader"></h1>
+          	<a href="#" data-rel="back" data-icon="back">back</a>   
+          </div>
+		
+			<div data-role="content">
+				
+				
+			    <div data-role="fieldcontain">
+			    	
+			    	<div id="statusbutton">
+			    		<div id="statusboxcontent">
+			    		</div>
+			    	</div>
+			    	
+			    	<br>
+			    	
+	                <strong id="daydate">Status</strong>							
+					<ul>
+							<li id="comp">Completed </li>
+							<li id="missing">Missing </li>
+							<li id="rem">Remaining</li>
+					</ul>
+
+	           </div>
+	              
+	           <br>
+ 
+   		       <ul id="worklist" data-role="listview" data-theme="a"></ul>
+
+               <br>
+               <br>
+               
+			   <div id="dayData">									
+			        <div id="chart2" style="height:200px;width:200px; "></div>
+			   </div>		
+
+			</div>
+			
+		 <div data-role="footer" data-position="fixed">
+         </div>
+         
+    	</div><!--daypage-->
+    	
+    	
+
+   </body>
+
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+ <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	
+    <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.1.0-rc.1.css">
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).bind('mobileinit',function(){
+        $.mobile.selectmenu.prototype.options.nativeMenu = false;
+    });
+    </script>
+
+    <script type="text/javascript" src="js/jquery.mobile-1.1.0-rc.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
+    <link rel="stylesheet" type="text/css" href="js/css_mob_test.css" />
+    
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    
+    <script type="text/javascript" src="js/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="js/jqplot.json2.js"></script>
+    <script type="text/javascript" src="js/jqplot.pieRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasAxisLabelRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasTextRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.canvasAxisTickRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.categoryAxisRenderer.js"></script>
+    <script type="text/javascript" src="js/jqplot.dateAxisRenderer.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
+
+    <title>Day</title>
+
+    </head>
+    
+    <script>
+	    $(document).ready(function(){
+		  var data = [
+		    ['Completed', 12],['Missing', 9], ['Incomplete', 14]
+		  ];
+		  var plot2 = jQuery.jqplot ('chart2', [data],
+		    {
+		      seriesDefaults: {
+		        renderer: jQuery.jqplot.PieRenderer,
+		        rendererOptions: {
+		          // Turn off filling of slices.
+		          fill: false,
+		          showDataLabels: true,
+		          // Add a margin to seperate the slices.
+		          sliceMargin: 4,
+		          // stroke the slices with a little thicker line.
+		          lineWidth: 5
+		        }
+		      },
+		      grid: {
+                background: 'transparent',
+                borderColor: 'transparent',
+                shadow: false
+              },
+		      legend: { 
+		      	show:false, 
+		      	location: 's',
+		      	background: '#333'
+		      },
+		      seriesColors: ["#007000", "#700000", "#707000"]
+		    }
+		  );
+		});
+    </script>
+    
+    <body class="bspBodyDay">
+
+        <div data-role="page" data-theme="a">
+        	
+          <div data-role="header" data-position="fixed">
+          	<h1>Day</h1>
+          	<a href="#" data-rel="back" data-icon="back">back</a>   
+          </div>
+		
+			<div data-role="content">
+				
+				
+			    <div data-role="fieldcontain">
+	                <strong>21 February 2012</strong>
+								
+					<ul>
+							<li>Comp. 3: </li>
+							<li>Missing 2: </li>
+							<li>Incomp. 3: </li>
+					</ul>	
+	           </div>
+
+               <br>
+               <br>
+               
+			   <div id="dayData">									
+			        <div id="chart2" style="height:300px;width:300px; "></div>
+			   </div>				
+
+			</div>
+			
+		 <div data-role="footer" data-position="fixed">
+            <h4>Day</h4>
+         </div>
+         
+    	</div>
+
+   </body>
+
+</html>
