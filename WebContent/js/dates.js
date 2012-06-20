@@ -116,7 +116,6 @@
 		
 		resetDateTime(date1);
 		resetDateTime(date2);	
-		//alert("date1.getTime(): "+ date1.getTime() + "  date2.getTime(): " + date2.getTime());
 		if(date1.getTime() >= date2.getTime())
 			return true;
 		else

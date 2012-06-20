@@ -1,6 +1,6 @@
 
 	var workData;
-	var cur_selected_emp;
+	var selectedEmployee;
 	var system = '/Q83';
 	
 	
@@ -28,14 +28,14 @@
 	{
 		
 		//console.log("workDate: " + workDate);
-		//console.log("cal_initial_date: " + cal_initial_date);
-		//console.log("cal_current_date: " + cal_current_date);
+		//console.log("initialCalendarViewDate: " + initialCalendarViewDate);
+		//console.log("currentCalendarViewDate: " + currentCalendarViewDate);
 
-		if(compareDateLess(workDate, cal_current_date))
+		if(compareDateLess(workDate, currentCalendarViewDate))
 		{
 			//console.log("less then current_date");
 			
-			if(compareDateGreater(workDate, cal_initial_date))//new Date()))	
+			if(compareDateGreater(workDate, initialCalendarViewDate))//new Date()))	
 			{	
 				setWorkingdayColor(remainingWork, expectedWork, savedWork, day);
 				setButtonOpacity(day + 1, 0.3);
@@ -43,20 +43,20 @@
 				setWorkingdayColor(remainingWork, expectedWork, savedWork, day);
 			
 		}
-		else if(compareDateEq(workDate, cal_initial_date))//new Date()))	
+		else if(compareDateEq(workDate, initialCalendarViewDate))//new Date()))	
 		{
 			setButtonCurrentDayColor(day + 1);
 		}
-		else if(compareDateEq(workDate, cal_current_date))	
+		else if(compareDateEq(workDate, currentCalendarViewDate))	
 		{
-			if(compareDateGreater(workDate, cal_initial_date))//new Date()))	
+			if(compareDateGreater(workDate, initialCalendarViewDate))//new Date()))	
 			{	
 				setWorkingdayColor(remainingWork, expectedWork, savedWork, day);
 				setButtonOpacity(day + 1, 0.3);
 			}else
 				setWorkingdayColor(remainingWork, expectedWork, savedWork, day);
 		}
-		else if(compareDateGreater(workDate, cal_initial_date))//new Date()))	
+		else if(compareDateGreater(workDate, initialCalendarViewDate))//new Date()))	
 	    {
 			setWorkingdayColor(remainingWork, expectedWork, savedWork, day);
 			setButtonOpacity(day + 1, 0.3);	
@@ -125,9 +125,6 @@
 	 							workDate,
 	 							i);
 	 		
-			//if(compareDateGreater(workDate, new Date()))	
-			//	setButtonOpacity(i + 1, 0.4);
-	 		
 		} 	
 	 
 	 	$('#calendartable').show();
@@ -169,8 +166,7 @@
   				
   				$('p#listTextActivity' + i + '').append('<span id="listitemheading">Activity: </span>');
   				$('p#listTextActivity' + i + '').append('<span id="listitemvalue">' + workDateData.itab[i].activity + '</span>');
-  				
-  				//$('li#listItem' + i + '').append('<a href="acura.html"> <p> <span id="listitemheading">Network: </span> <span id="listitemvalue">' + workDateData.itab[i].network + '</span> </p>  <p> <span id="listitemheading">Activity: </span> <span id="listitemvalue">' + workDateData.itab[i].activity + '</span> </p> </a>');			
+		
   			}
   					 		
 		} 	
@@ -199,91 +195,79 @@
 		$("li#position_mgr").html(response.position);
 		
 	}
+
 	
-	//TODO seperate in method
-	function processEmployeeDataList(response)
+	//TODO: add functionality for managar click?
+	function processEmployeeMemberList(response)
 	{
 		
-		var empData = response;
-		
+		var empData = response;	
 		$('ul#emplistview').empty();
 		
   		for (var i = 0; i < empData.itab.length; i++)
 		{
-  			if(empData.itab[i].is_manager == 'X')
-  				$('ul#emplistview').append('<li><a onClick="alert(managerpage)">' +
-											        '<img src="/missing_timewriting/js/images/person_placeholder.png" title="sample"/>' +
-											        '<h3 id="name">'+ empData.itab[i].username +'</h3>' +
-											        '<p id="position">'+ empData.itab[i].position +'</p>' +
-										        '</a>' +
-										    '</li>');
-  			else
-  			{
-				$('ul#emplistview').append('<li><a onClick="displayCalendarPage(' + empData.itab[i].userid + ')">' +
-											        '<img src="/missing_timewriting/js/images/person_placeholder.png" title="sample"/>' +
-											        '<h3 id="name">'+ empData.itab[i].username +'</h3>' +
-											        '<p id="position">'+ empData.itab[i].position +'</p>' +
-										        '</a>' +
-										    '</li>');
+  			if(empData.itab[i].is_manager == 'X'){
+  				appendEmployeeToList('', empData.itab[i].username, empData.itab[i].position);
+  			}
+  			else{
+  				appendEmployeeToList('displayCalendarPage(' + empData.itab[i].userid + ');', empData.itab[i].username, empData.itab[i].position);
   			}
 		}
+  		
 		$('ul#emplistview').listview('refresh');
 
 	}
 	
-	//loadEmployeeWorkHours()
-	function getWorkMgrData( employee, date)
-	{
-		cur_selected_emp = employee;
+	
+	function appendEmployeeToList(onClickFunction, employeeName, employeePosition){
 		
-		getDataJSON(processWorkData, 
-					system  + "/resources/timewriting/managerdata/" + employee + "/" + date);
+		$('ul#emplistview').append('<li><a onClick="' + onClickFunction + '">' +
+		        '<img src="/missing_timewriting/js/images/person_placeholder.png" title="sample"/>' +
+		        '<h3 id="name">'+ employeeName +'</h3>' +
+		        '<p id="position">'+ employeePosition +'</p>' +
+	        '</a>' +
+	    '</li>');
+		
 	}
 	
-	//loadEmployeeMemberList
-	function getEmployeeDataList( )
+
+	function loadEmployeeWorkHours( employee, date)
 	{
-		getDataJSON(processEmployeeDataList, 
-				    system + "/resources/timewriting/managerdata/",
-					function() { $.mobile.showPageLoadingMsg(); }, 
-					function() { $.mobile.hidePageLoadingMsg(); });
+		selectedEmployee = employee;
+		
+		databaseAjaxCall(processWorkData, 
+						 system  + "/resources/timewriting/managerdata/" + employee + "/" + date);
 	}
 	
-	//loadManagerDetails
-	function getManagerData( )
+
+	function loadEmployeeMemberList( )
 	{
-		getDataJSON(processManagerData, 
-				    system + "/resources/timewriting/userdata");
+		databaseAjaxCall(processEmployeeMemberList, 
+						 system + "/resources/timewriting/managerdata/",
+						 function() { $.mobile.showPageLoadingMsg(); }, 
+						 function() { $.mobile.hidePageLoadingMsg(); });
 	}
 	
-	/*
-	function getEmployeeData( )
+
+	function loadManagerDetails( )
 	{
-		getDataJSON(processEmployeeData, system + "/resources/timewriting/userdata");
+		databaseAjaxCall(processManagerData, system + "/resources/timewriting/userdata");
 	}
-	*/
+	
 	
 	function loadEmployeeDetails( employee )
 	{
-		getDataJSON(processEmployeeData, system + "/resources/timewriting/userdata/" + employee);
+		databaseAjaxCall(processEmployeeData, system + "/resources/timewriting/userdata/" + employee);
 	}
+
 	
-	/*	
-	function getWorkData( date )
+	function loadWorkHourDetails( date )
 	{			
-		getDataJSON(processWorkData, system + "/resources/timewriting/workdata/" + date);
-	}
-	*/
-	
-	//loadWorkHourDetails
-	function getDateWorkData( date )
-	{			
-		getDataJSON(processDateWorkData, system + "/resources/timewriting/workinfo/" + date);
+		databaseAjaxCall(processDateWorkData, system + "/resources/timewriting/workinfo/" + date);
 	}
 	 
 	
-	//databaseAjaxCall
-	function getDataJSON(responseFunc, url, beforeSendFunc, afterSendFunc){
+	function databaseAjaxCall(responseFunc, url, beforeSendFunc, afterSendFunc){
 
 		$.ajax({
 				  beforeSend: beforeSendFunc,

@@ -9,15 +9,15 @@
 		
 		cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-		cal_current_date = new Date(); 
-		cal_initial_date = new Date(); 
+		currentCalendarViewDate = new Date();
+		initialCalendarViewDate = new Date(); 
 		
 		function Calendar(day, month, year) 
 		{
 					
-			  this.day = (isNaN(month) || day == null) ? cal_current_date.getDay() : day;
-			  this.month = (isNaN(month) || month == null) ? cal_current_date.getMonth() : month;
-			  this.year  = (isNaN(year) || year == null) ? cal_current_date.getFullYear() : year;
+			  this.day = (isNaN(month) || day == null) ? currentCalendarViewDate.getDay() : day;
+			  this.month = (isNaN(month) || month == null) ? currentCalendarViewDate.getMonth() : month;
+			  this.year  = (isNaN(year) || year == null) ? currentCalendarViewDate.getFullYear() : year;
 			  this.html = '';
 			  
 		}
@@ -107,14 +107,12 @@
 		{
 			
 			var dayData = getWorkdataForDay(day);
-			
-			//alert(daydata.expectedWork);
-			
-			getDateWorkData(year + '' + padZeroFront(month + 1) + '' + padZeroFront(day));
-			
+					
+			loadWorkHourDetails(year + '' + padZeroFront(month + 1) + '' + padZeroFront(day));
+		
 			$.mobile.changePage( "#daypage", { allowSamePageTransition: true,
 			    							   transition: "slideup" });
- 
+
 			$("h1#dateheader").text(getCalendarString(day, month, year));
 			$("li#comp").text("Saved: " + dayData.savedWork + 'h');
 			$("li#missing").text("Expected: " + dayData.expectedWork + 'h');
@@ -135,9 +133,7 @@
 		
 		function setButtonOpacity(day, opacity)
 		{			
-			//console.log("Opaqe");
 			document.getElementById("cal_button" + day).style.opacity = opacity;	
-			//setButtonColor(day, '#00ff33');
 		}
 		
 		
@@ -173,19 +169,18 @@
 		
 		function updateCalanderDate(year, month)
 		{
-			//var currentDate = new Date();
-			var currentDate = cal_initial_date;
+			var currentDate = initialCalendarViewDate;
 			var day;
 			
 			if(compareDateEq(new Date(year, month, currentDate.getDate()), currentDate))
 			{
-				cal_current_date = cal_initial_date;//new Date();
+				currentCalendarViewDate = initialCalendarViewDate;//new Date();
 			}
 			else
 			{
 		  	 	//TODO leap year
 				day = cal_days_in_month[month];	  
-				cal_current_date = new Date(year, month, day);
+				currentCalendarViewDate = new Date(year, month, day);
 			}
 			
 		}
@@ -211,8 +206,8 @@
 		function displayPreviousMonth()
 		{
 			 
-			var calendarMonth = cal_current_date.getMonth();			
-			var calendarYear = cal_current_date.getFullYear();
+			var calendarMonth = currentCalendarViewDate.getMonth();			
+			var calendarYear = currentCalendarViewDate.getFullYear();
 
 			if(calendarMonth == 0)
 			{
@@ -224,21 +219,18 @@
 			updateCalanderDate(calendarYear, calendarMonth - 1);
 			updateCalendar(true);				  
 
-			//$.mobile.showPageLoadingMsg();
-			
-			var dateString = buildDateString(calendarYear, calendarMonth);								       
-			//getWorkData(dateString);
-			getWorkMgrData(cur_selected_emp, dateString);
-			
-			//$.mobile.hidePageLoadingMsg();
+			var dateString = buildDateString(calendarYear, calendarMonth);	
+
+			loadEmployeeWorkHours(selectedEmployee, dateString);
+
 		}
 		
 		
 		function displayNextMonth()
 		{
 			
-			var calendarMonth = cal_current_date.getMonth();			
-			var calendarYear = cal_current_date.getFullYear();
+			var calendarMonth = currentCalendarViewDate.getMonth();			
+			var calendarYear = currentCalendarViewDate.getFullYear();
 			
 			if(calendarMonth == 11)
 			{
@@ -250,9 +242,9 @@
 			updateCalanderDate(calendarYear, calendarMonth + 1);
 			updateCalendar(false);	
 
-			var dateString = buildDateString(cal_current_date.getFullYear(), cal_current_date.getMonth() + 1);		
+			var dateString = buildDateString(currentCalendarViewDate.getFullYear(), currentCalendarViewDate.getMonth() + 1);		
 
-			getWorkMgrData(cur_selected_emp, dateString);
+			loadEmployeeWorkHours(selectedEmployee, dateString);
 
 		}
 		

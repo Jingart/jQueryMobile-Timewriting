@@ -4,17 +4,9 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=10 user-scalable=no" /> 
-
 	
     <link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.1.0.css">
-     
     <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
-
-    <script type="text/javascript">
-        /*$(document).bind('mobileinit',function(){
-        	$.mobile.selectmenu.prototype.options.nativeMenu = false;
-    	});*/
-    </script>
 
     <script type="text/javascript" src="js/jquery.mobile-1.1.0-rc.1.js"></script>
     <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
@@ -25,7 +17,8 @@
     <script type="text/javascript" src="js/dates.js"></script>
     <script type="text/javascript" src="js/graph.js"></script>
     <script type="text/javascript" src="js/index_mgr_load.js"></script>
-    
+  
+  <!--  
     <script type="text/javascript" src="js/jquery.jqplot.js"></script>
     <script type="text/javascript" src="js/jqplot.json2.js"></script>
     <script type="text/javascript" src="js/jqplot.pieRenderer.js"></script>
@@ -36,23 +29,12 @@
     <script type="text/javascript" src="js/jqplot.dateAxisRenderer.js"></script>
 
     <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
-
+  -->
 
     <title>Missing Timewriting</title>
     
-    <style type="text/css">
-
-		
-	</style>
-
-	<script>
-
-	</script>
-
-
     </head>
     
-
     <body class="bspBody1">
 
         <div data-role="page" data-theme="a" id="home">
@@ -130,26 +112,7 @@
 						<button onClick="displayNextMonth()" style="float: right;" data-icon="arrow-r" data-iconpos="notext"></button>
 				</div>
 				
-				<!--<button onClick="getDateWorkData('20120113')" data-icon="arrow-l">tst</button>-->
-				
-				<div id="calendardiv" data-theme="a">
-					<script type="text/javascript">
-					/*
-					  $.mobile.showPageLoadingMsg();
-	
-					  var cal = new Calendar();
-					  cal.generateHTML();
-					  							  
-					  document.write(cal.getHTML());
-					  $('#calendartable').hide();
-						
-					  //getWorkData(getDateString(cal_initial_date));
-					  
-					  $.mobile.hidePageLoadingMsg();
-					  		*/
-					</script>
-				</div>
-
+				<div id="calendardiv" data-theme="a"></div>
 
 			</div>
          
