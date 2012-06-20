@@ -1,5 +1,14 @@
+	
 
 
+	function getCalendarString(day, month, year)
+	{
+		var dateString = new String();
+		dateString = day + ' ' + cal_months_labels[month] + ' ' + year;
+		return dateString;			
+	}
+
+		
 	function getDateString(date)
 	{
 		//alert(date.getFullYear());

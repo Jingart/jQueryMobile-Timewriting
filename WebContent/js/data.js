@@ -177,18 +177,7 @@
 			 
   		
 		$('ul#worklist').listview('refresh');
-		
-	 	//$('#calendartable').show();
-  		/*
-		<li data-role="list-divider" role="heading"> Thursday, October 7, 2010 </li>
 
-		<li><a href="acura.html">Acura</a></li>
-		<li><a href="audi.html">Audi</a></li>
-		
-		<li data-role="list-divider" role="heading"> Thursday, October 8, 2010 </li>
-							
-		<li><a href="bmw.html">BMW</a></li>
-	 	*/
 	}
 	
 	
@@ -242,7 +231,7 @@
 
 	}
 	
-	
+	//loadEmployeeWorkHours()
 	function getWorkMgrData( employee, date)
 	{
 		cur_selected_emp = employee;
@@ -251,7 +240,7 @@
 					system  + "/resources/timewriting/managerdata/" + employee + "/" + date);
 	}
 	
-
+	//loadEmployeeMemberList
 	function getEmployeeDataList( )
 	{
 		getDataJSON(processEmployeeDataList, 
@@ -260,62 +249,51 @@
 					function() { $.mobile.hidePageLoadingMsg(); });
 	}
 	
-	
+	//loadManagerDetails
 	function getManagerData( )
 	{
 		getDataJSON(processManagerData, 
 				    system + "/resources/timewriting/userdata");
 	}
 	
-	
+	/*
 	function getEmployeeData( )
 	{
 		getDataJSON(processEmployeeData, system + "/resources/timewriting/userdata");
 	}
+	*/
 	
-	
-	function getEmployeeDataAtr( employee )
+	function loadEmployeeDetails( employee )
 	{
 		getDataJSON(processEmployeeData, system + "/resources/timewriting/userdata/" + employee);
 	}
 	
-		
+	/*	
 	function getWorkData( date )
 	{			
 		getDataJSON(processWorkData, system + "/resources/timewriting/workdata/" + date);
 	}
+	*/
 	
+	//loadWorkHourDetails
 	function getDateWorkData( date )
 	{			
 		getDataJSON(processDateWorkData, system + "/resources/timewriting/workinfo/" + date);
 	}
-
+	 
 	
+	//databaseAjaxCall
 	function getDataJSON(responseFunc, url, beforeSendFunc, afterSendFunc){
 
 		$.ajax({
 				  beforeSend: beforeSendFunc,
 				  complete: afterSendFunc,
-			      //beforeSend: function() { $.mobile.showPageLoadingMsg(); }, //Show spinner
-		          //complete: function() { $.mobile.hidePageLoadingMsg(); }, //Hide spinner
+
 				  type: "GET",
 				  dataType: 'json',
 				  url: url,
-
-				  /*statusCode: {
-			            404: function() {
-			                console.log("response 404!");
-			            },
-			            200: function() {
-			                console.log("response 200!");
-			            },
-			            204: function() {
-			                console.log("response 204!");
-			            }
-			      },*/
 			      success: function( object ) {
-			           //console.log("success");
-			           
+
 			           if(jQuery.isEmptyObject( object ))
 			           	   console.log("response 204! - empty");
 			           else
@@ -326,150 +304,6 @@
 			      }
 		});
 		
-	}
-	
-	
-	
-	
-	
-	
-	
-	/*
-	function displayPreviousMonth()
-	{
-		var calendarMonth = cal_current_date.getMonth();			
-		var calendarYear = cal_current_date.getFullYear();
-		
-		calendarMonth = padZeroFront(calendarMonth);
-			
-		if(calendarMonth == 0)
-		{
-			calendarYear--;
-			calendarMonth = "12";
-		}
-		
-		//$.mobile.changePage("index.html?key=" + 2, "slide", "true", "true");
-		
-		
-		 var person={year:'2012', month:'02'};
-         var params = person;
-		
-		  var form = document.createElement("form");
-          form.setAttribute("data-transition", "fade");
-          form.setAttribute("method", "get");
-          form.setAttribute("action", "#home");
-          form.setAttribute("ID", "asdasd");
-
-          for(var key in params)
-          {
-              if(params.hasOwnProperty(key))
-              {
-                  var hiddenField = document.createElement("input");
-                  hiddenField.setAttribute("type", "hidden");
-                  hiddenField.setAttribute("name", key);
-                  hiddenField.setAttribute("value", params[key]);
-                  form.appendChild(hiddenField);
-              }
-           }
-           
-           document.body.appendChild(form);
-           
-           
-        gdata = "value";   
-		
-		$.mobile.changePage( "#home", { allowSamePageTransition: true,
-									    transition: "slide",
-									    reverse: true,
-									    type: "get",
-									    date: $("form#asdasd").serialize() });
-									    
-		//post_to_url(calendarMonth, calendarYear, "#home");
-		
-	}
-	
-	
-	function displayNextMonth()
-	{
-		var calendarMonth = cal_current_date.getMonth();
-		calendarMonth += 2;
-		var calendarYear = cal_current_date.getFullYear();
-		
-		calendarMonth = padZeroFront(calendarMonth);
-		
-	    if(calendarMonth > 12)
-		{
-			calendarYear++;
-			calendarMonth = "01";
-		}
-		
-
-		$.mobile.changePage( "#home", { allowSamePageTransition: true,
-									    transition: "slide"} );
-		//post_to_url(calendarMonth, calendarYear, "#home"); 
-		
-	}
-	
-	
-    function post_to_url(m, y, destination)
-	{
-		  
-		  var path = destination;//window.location;
-          var person={year:y, month:m};
-          var params = person;
-          var meth = "get";
-          		  
-          var form = document.createElement("form");
-          form.setAttribute("data-transition", "fade");
-          form.setAttribute("method", meth);
-          form.setAttribute("action", path);
-
-          for(var key in params)
-          {
-              if(params.hasOwnProperty(key))
-              {
-                  var hiddenField = document.createElement("input");
-                  hiddenField.setAttribute("type", "hidden");
-                  hiddenField.setAttribute("name", key);
-                  hiddenField.setAttribute("value", params[key]);
-                  form.appendChild(hiddenField);
-              }
-           }
-           
-           document.body.appendChild(form);
-           
-           
-           //$.mobile.changePage("#home", {transition: "none"});
-		   //$('.ui-page-active').page('destroy').page();
-		   //$("#postdiv").trigger("create");
-		   
-           form.submit();
-
-	   }
-	  
-	  
-	  function getUrlDate()
-	  {
-	  	 //TODO always returns blank at end
-	  	 var urlParams = location.search.substr(1).split("&");
-	  	 var dateString = new String();
-
-		 var x=0;
-		 for (x=0;x<urlParams.length;x++) 
-		 {
-			 var str = urlParams[x].substr(1).split("=");
-			 dateString += str[1];
-		 }
-		 
-		 if(urlParams.length == 1)
-		 	dateString = "";
-		 	
-		 // show current day if current month
-		 var date = convertToDate((dateString) + "01");
-		 if(compareDateMonthEq(date, new Date()))
-			dateString = "";
-		     
-	     return dateString;
-	  }
-	*/
+	};
 	
 	

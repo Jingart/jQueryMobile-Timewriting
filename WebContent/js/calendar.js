@@ -8,11 +8,7 @@
 		                     'October', 'November', 'December'];
 		
 		cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-		
-	
-		//cal_initial_date = new Date(2000, 09, 25);
-		//cal_current_date = new Date(2000, 09, 25);
-		
+
 		cal_current_date = new Date(); 
 		cal_initial_date = new Date(); 
 		
@@ -104,14 +100,6 @@
 		Calendar.prototype.getHTML = function() 
 		{			
 			return this.html;
-		}
-		
-		
-		function getCalendarString(day, month, year)
-		{
-			var dateString = new String();
-			dateString = day + ' ' + cal_months_labels[month] + ' ' + year;
-			return dateString;			
 		}
 		
 		
@@ -249,9 +237,6 @@
 		function displayNextMonth()
 		{
 			
-			//if(compareDateLess(cal_current_date, new Date()));
-			//{
-			
 			var calendarMonth = cal_current_date.getMonth();			
 			var calendarYear = cal_current_date.getFullYear();
 			
@@ -264,16 +249,11 @@
 			// Javadate starts at 0
 			updateCalanderDate(calendarYear, calendarMonth + 1);
 			updateCalendar(false);	
-			
-			//$.mobile.showPageLoadingMsg();
-			
+
 			var dateString = buildDateString(cal_current_date.getFullYear(), cal_current_date.getMonth() + 1);		
-			//getWorkData(datestring);	
+
 			getWorkMgrData(cur_selected_emp, dateString);
-			
-			//$.mobile.hidePageLoadingMsg();
-			//}							    
-			
+
 		}
 		
 		

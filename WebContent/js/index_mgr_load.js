@@ -11,24 +11,22 @@
 	});
 	
 	
-	function displayCalendarPage(employee_num)
+	function displayCalendarPage(employeeNumber)
 	{
 		
 		cal_current_date = new Date(); 
 		
-		//$.mobile.showPageLoadingMsg();
-		
-		getEmployeeDataAtr(employee_num);
+		//getEmployeeDataAtr(employee_num);
+		loadEmployeeDetails(employeeNumber);
 		
 		var cal = new Calendar();
 		cal.generateHTML();
 	  							  
 		$('#calendardiv').html(cal.getHTML());
 		
-		getWorkMgrData(employee_num, getDateString(cal_initial_date));
+		getWorkMgrData(employeeNumber, getDateString(cal_initial_date));
 
 		$.mobile.changePage( "#calendarview", { allowSamePageTransition: true, transition: "slide" });
 		$("#calendartable").trigger("create");
-		//updateCalendar(false);	
-		//getWorkData(getDateString(cal_initial_date));
+
 	}
