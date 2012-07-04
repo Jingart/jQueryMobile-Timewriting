@@ -3,8 +3,8 @@
 	//var selectedEmployee;
 
 
-	function appendEmployeeToList(onClickFunction, employeeName, employeePosition){
-		
+	appendEmployeeToList = function(onClickFunction, employeeName, employeePosition){
+	
 		$('ul#emplistview').append('<li><a onClick="' + onClickFunction + '">' +
 		        '<img src="css/images/person_placeholder.png" title="sample"/>' +
 		        '<h3 id="name">'+ employeeName +'</h3>' +
@@ -13,12 +13,9 @@
 	    '</li>');	
 	}
 
-/*
 
-*/
-		
 	//TODO cleanup
-	function setWorkingdayStatus(remainingWork, expectedWork, savedWork, workDate, day)
+	setWorkingdayStatus = function(remainingWork, expectedWork, savedWork, workDate, day)
 	{
 
 		if(compareDateLess(workDate, currentCalendarViewDate))
@@ -54,7 +51,7 @@
 	}
 	
 	
-	function setWorkingdayColor(remainingWork, expectedWork, savedWork, day)
+	setWorkingdayColor = function(remainingWork, expectedWork, savedWork, day)
 	{
 		
 		day += 1;

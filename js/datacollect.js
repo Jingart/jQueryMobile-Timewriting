@@ -68,8 +68,8 @@
 			success: function( object ) {
 							 
 			    if(jQuery.isEmptyObject( object )){
-			   	   console.log("204 - empty");
-			   	   alert("No data found");
+			   	   //console.log("204 - empty");
+			   	   //alert("No data found");
 			    }
 			    else{
 				   responseFunc(object);
@@ -82,7 +82,9 @@
 				console.log("request.status: " + request.status);
 				console.log("status: " + status);
 				console.log("error: " + error);
-				alert("Error: " +  request.status);
+				alert("Error: " +  error);
+				//$('#myPopupDiv').popup();
+				//$.mobile.changePage('#generaldialog', 'pop', true, true);
    			}
 
 		});
