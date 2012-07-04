@@ -1,24 +1,23 @@
 
-
-
-		cal_days_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-		
-		cal_months_labels = ['January', 'February', 'March', 'April',
-		                     'May', 'June', 'July', 'August', 'September',
-		                     'October', 'November', 'December'];
-		
-		cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
 		currentCalendarViewDate = new Date();
 		initialCalendarViewDate = new Date(); 
 		
+		
 		function Calendar(day, month, year) 
 		{
+
+			this.cal_days_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		
+			this.cal_months_labels = ['January', 'February', 'March', 'April',
+		                             'May', 'June', 'July', 'August', 'September',
+		                             'October', 'November', 'December'];
+		
+			this.cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 					
-			  this.day = (isNaN(month) || day == null) ? currentCalendarViewDate.getDay() : day;
-			  this.month = (isNaN(month) || month == null) ? currentCalendarViewDate.getMonth() : month;
-			  this.year  = (isNaN(year) || year == null) ? currentCalendarViewDate.getFullYear() : year;
-			  this.html = '';
+			this.day = (isNaN(month) || day == null) ? currentCalendarViewDate.getDay() : day;
+		    this.month = (isNaN(month) || month == null) ? currentCalendarViewDate.getMonth() : month;
+			this.year  = (isNaN(year) || year == null) ? currentCalendarViewDate.getFullYear() : year;
+			this.html = '';
 			  
 		}
 				
@@ -31,7 +30,7 @@
 			  var startingDay = firstDay.getDay();
 			  
 			  // find number of days in month
-			  var monthLength = cal_days_in_month[this.month];
+			  var monthLength = this.cal_days_in_month[this.month];
 			  
 			  // compensate for leap year
 			  if (this.month == 1) { // February only!
@@ -40,7 +39,7 @@
 			    }
 			  }
 
-			  var monthName = cal_months_labels[this.month]
+			  var monthName = this.cal_months_labels[this.month]
 			  var html = '<table id="calendartable" class="calendar-table" width=100%>';
 			  html += '<tr><th colspan="7">';
 			  
@@ -57,7 +56,7 @@
 			  for(var i = 0; i <= 6; i++ )
 			  {
 			    html += '<td class="calendar-header-day">';
-			    html += cal_days_labels[i];
+			    html += this.cal_days_labels[i];
 			    html += '</td>';
 			  }
 			  
@@ -102,72 +101,50 @@
 			return this.html;
 		}
 		
-		
-		function displayDayPage( day, month, year)
-		{
-			
-			var dayData = getWorkdataForDay(day);
-					
-			loadWorkHourDetails(year + '' + padZeroFront(month + 1) + '' + padZeroFront(day));
-		
-			$.mobile.changePage( "#daypage", { allowSamePageTransition: true,
-			    							   transition: "slideup" });
 
-			$("h1#dateheader").text(getCalendarString(day, month, year));
-			$("li#comp").text("Saved: " + dayData.savedWork + 'h');
-			$("li#missing").text("Expected: " + dayData.expectedWork + 'h');
-			$("li#rem").text("Remaining: " + dayData.remainingWork + 'h');
-			
-			$("#statusboxcontent").empty();
-			$("#statusboxcontent").append(day);
-			document.getElementById("statusbutton").style.background = document.getElementById("cal_button" + day).style.background;
-			
-		}
-		
-		
-		function setButtonColor(day, color)
+		Calendar.prototype.setButtonColor = function(day, color) 
 		{
 			document.getElementById("cal_button" + day).style.background = color;
 		}
 		
-		
-		function setButtonOpacity(day, opacity)
+
+		Calendar.prototype.setButtonOpacity = function(day, opacity) 
 		{			
 			document.getElementById("cal_button" + day).style.opacity = opacity;	
 		}
 		
-		
-		function setButtonCurrentDayColor(day)
+
+		Calendar.prototype.setButtonCurrentDayColor = function(day) 
 		{
-			setButtonColor(day, '#0047B2');
+			this.setButtonColor(day, '#0047B2');
+		}
+
+
+		Calendar.prototype.setButtonMissingColor = function(day) 
+		{
+			this.setButtonColor(day, '#620000');
 		}
 		
-		
-		function setButtonMissingColor(day)
+
+		Calendar.prototype.setButtonCompleteColor = function(day, currentDay) 
 		{
-			setButtonColor(day, '#620000');
+			this.setButtonColor(day, '#006200');
 		}
 		
-		
-		function setButtonCompleteColor(day, currentDay)
+
+		Calendar.prototype.setButtonIncompleteColor = function(day, currentDay) 
 		{
-			setButtonColor(day, '#006200');
+			this.setButtonColor(day, '#CCC400');
 		}
 		
-		
-		function setButtonIncompleteColor(day, currentDay)
+
+		Calendar.prototype.setButtonOvertimeColor = function(day, currentDay) 
 		{
-			setButtonColor(day, '#CCC400');
+			this.setButtonColor(day, '#00DD00');
 		}
 		
-		
-		function setButtonOvertimeColor(day, currentDay)
-		{
-			setButtonColor(day, '#00DD00');
-		}
-		
-		
-		function updateCalanderDate(year, month)
+
+		Calendar.prototype.updateCalanderDate = function(year, month) 
 		{
 			var currentDate = initialCalendarViewDate;
 			var day;
@@ -179,74 +156,31 @@
 			else
 			{
 		  	 	//TODO leap year
-				day = cal_days_in_month[month];	  
+				day = this.cal_days_in_month[month];	  
 				currentCalendarViewDate = new Date(year, month, day);
 			}
 			
 		}
 		
-		
-		function updateCalendar(reverse)
+
+		Calendar.prototype.updateCalendar = function(reverse) 
 		{			
 			
 			$('#calendartable').hide();
 			
-			var cal = new Calendar();
-			cal.generateHTML();	
+			var calendar = new Calendar();
+			calendar.generateHTML();	
 			
-			$("#calendartable").html(cal.getHTML());
+			$("#calendartable").html(calendar.getHTML());
 			$("#calendartable").trigger("create");		
 			
 			$.mobile.changePage( "#calendarview", { allowSamePageTransition: true,
-										    transition: "slide",
-										    reverse: reverse });									    
+										    		transition: "slide",
+										    		reverse: reverse });									    
 		}
 		
 		
-		function displayPreviousMonth()
-		{
-			 
-			var calendarMonth = currentCalendarViewDate.getMonth();			
-			var calendarYear = currentCalendarViewDate.getFullYear();
 
-			if(calendarMonth == 0)
-			{
-				calendarYear--;
-				calendarMonth = "12";
-			}
-			
-			// Javadate starts at 0
-			updateCalanderDate(calendarYear, calendarMonth - 1);
-			updateCalendar(true);				  
-
-			var dateString = buildDateString(calendarYear, calendarMonth);	
-
-			loadEmployeeWorkHours(selectedEmployee, dateString);
-
-		}
-		
-		
-		function displayNextMonth()
-		{
-			
-			var calendarMonth = currentCalendarViewDate.getMonth();			
-			var calendarYear = currentCalendarViewDate.getFullYear();
-			
-			if(calendarMonth == 11)
-			{
-				calendarYear++;
-				calendarMonth = -1;
-			}
-			
-			// Javadate starts at 0
-			updateCalanderDate(calendarYear, calendarMonth + 1);
-			updateCalendar(false);	
-
-			var dateString = buildDateString(currentCalendarViewDate.getFullYear(), currentCalendarViewDate.getMonth() + 1);		
-
-			loadEmployeeWorkHours(selectedEmployee, dateString);
-
-		}
 		
 		
 		

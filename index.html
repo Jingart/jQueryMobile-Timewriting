@@ -6,19 +6,20 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=10 user-scalable=no" /> 
 	
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.1.0.css">
-    <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-1.7.1.js"></script>
 
-    <script type="text/javascript" src="js/jquery.mobile-1.1.0-rc.1.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.mobile-1.1.0-rc.1.js"></script>
     <!--<script type="text/javascript" src="js/jquery.mobile-1.1.0.js"></script>-->
     <!--  <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />-->
     <link rel="stylesheet" type="text/css" href="css/custom_styling.css" />
     
     <script type="text/javascript" src="js/calendar.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
-    <script type="text/javascript" src="js/dates.js"></script>
-    <!--<script type="text/javascript" src="js/graph.js"></script>-->
-    <script type="text/javascript" src="js/index_mgr_load.js"></script>
-	<script type="text/javascript" src="js/base64.js"></script>
+    <script type="text/javascript" src="js/datacollect.js"></script>
+    <script type="text/javascript" src="js/processdata.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/loader.js"></script>
+	<script type="text/javascript" src="js/utils/base64.js"></script>
   
   <!--  
     <script type="text/javascript" src="js/jquery.jqplot.js"></script>
@@ -32,6 +33,12 @@
 
     <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
   -->
+
+  	<script>
+  		var dataCollector = new dataCollect('/Q93');
+  		var dataProcessor = new dataProcess();
+  		var calendar = new Calendar();
+  	</script>
 
     <title>Missing Timewriting</title>
     

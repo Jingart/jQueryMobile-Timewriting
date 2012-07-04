@@ -1,10 +1,35 @@
 	
+	function DayData(savedWork, remainingWork, expectedWork) {
+		this.remainingWork = remainingWork;
+		this.expectedWork = expectedWork;
+		this.savedWork = savedWork;
+	}
+
+
+	function padZeroFront(str)
+	{
+		
+		if(str < 10)
+			str = "0" + str;
+		
+		return str;
+		
+	}
+	
+	function trimLeadingZero(str)
+	{
+		
+	  	 while(str.charAt(0) == '0' && str.length > 1)
+	  		str = str.substr(1);
+		
+	  	 return str;
+	}
 
 
 	function getCalendarString(day, month, year)
 	{
 		var dateString = new String();
-		dateString = day + ' ' + cal_months_labels[month] + ' ' + year;
+		dateString = day + ' ' + calendar.cal_months_labels[month] + ' ' + year;
 		return dateString;			
 	}
 
