@@ -6,10 +6,30 @@
 	
 	
 	$(document).ready(function(){
-		dataCollector.loadEmployeeMemberList();
+		dataCollector.loadManagerEmployeeList();
 	});
 	
 	
+	function displayReset()
+	{
+		$("li#perno_mgr_sub").html("");
+		$("li#name_mgr_sub").html("");
+		$("li#position_mgr_sub").html("");
+
+		$("#submgrtxt").css('visibility', 'hidden');
+		$('ul#emplistview').empty();
+		dataCollector.loadManagerEmployeeList();
+	}
+
+	function displaySubManager(managerNumber)
+	{
+		$("#submgrtxt").css('visibility', 'visible');
+		dataCollector.loadSubManagerDetails(managerNumber);
+		$('ul#emplistview').empty();
+		dataCollector.loadSubManagerEmployeeList(managerNumber);
+	}
+
+
 	function displayCalendarPage(employeeNumber)
 	{
 		currentCalendarViewDate = new Date(); 
@@ -18,7 +38,6 @@
 		
 		calendar.generateHTML();	  							  
 		$('#calendardiv').html(calendar.getHTML());
-		
 		dataCollector.loadEmployeeWorkHours(employeeNumber, getDateString(initialCalendarViewDate));
 
 		$.mobile.changePage( "#calendarview", { allowSamePageTransition: true, transition: "slide" });

@@ -92,12 +92,22 @@
 		}
 		
 
-		this.managerDataCallback = function(response)
+		this.managerDetailsCallback = function(response)
 		{
 			
 			$("li#perno_mgr").html(response.perno);
 			$("li#name_mgr").html(response.firstname + ' ' + response.last_name);
 			$("li#position_mgr").html(response.position);
+			
+		}
+
+
+		this.subManagerDetailsCallback = function(response)
+		{
+			
+			$("li#perno_mgr_sub").html(response.perno);
+			$("li#name_mgr_sub").html(response.firstname + ' ' + response.last_name);
+			$("li#position_mgr_sub").html(response.position);
 			
 		}
 
@@ -112,10 +122,11 @@
 	  		for (var i = 0; i < empData.itab.length; i++)
 			{
 	  			if(empData.itab[i].is_manager == 'X'){
-	  				appendEmployeeToList('', empData.itab[i].username, empData.itab[i].position);
+	  				appendEmployeeToList('displaySubManager(' + empData.itab[i].userid + ');', empData.itab[i].username, empData.itab[i].position, i);
+	  				setListItemColor(i, 'rgba(41, 149, 221, 0.46)');
 	  			}
 	  			else{
-	  				appendEmployeeToList('displayCalendarPage(' + empData.itab[i].userid + ');', empData.itab[i].username, empData.itab[i].position);
+	  				appendEmployeeToList('displayCalendarPage(' + empData.itab[i].userid + ');', empData.itab[i].username, empData.itab[i].position, i);
 	  			}
 			}
 	  		

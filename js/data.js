@@ -2,10 +2,15 @@
 	//var workData;
 	//var selectedEmployee;
 
+    setListItemColor = function(index, color) 
+	{
+		document.getElementById("emplistitem" + index).style.background = color;
+	}
 
-	appendEmployeeToList = function(onClickFunction, employeeName, employeePosition){
+
+	appendEmployeeToList = function(onClickFunction, employeeName, employeePosition, index){
 	
-		$('ul#emplistview').append('<li><a onClick="' + onClickFunction + '">' +
+		$('ul#emplistview').append('<li><a id="emplistitem'+index+'" onClick="' + onClickFunction + '">' +
 		        '<img src="css/images/person_placeholder.png" title="sample"/>' +
 		        '<h3 id="name">'+ employeeName +'</h3>' +
 		        '<p id="position">'+ employeePosition +'</p>' +

@@ -6,14 +6,23 @@
 	    this.system = system;
 	}
 
-	dataCollect.prototype.loadEmployeeWorkHours = function(employee, date)
+	dataCollect.prototype.loadEmployeeWorkHours = function(employeenumber, date)
 	{
-		selectedEmployee = employee;
-		this.databaseAjaxCall(dataProcessor.workDataCallback, this.system  + "/resources/timewriting/managerdata/" + employee + "/" + date);
+		selectedEmployee = employeenumber;
+		this.databaseAjaxCall(dataProcessor.workDataCallback, this.system  + "/resources/timewriting/managerdata/" + employeenumber + "/" + date);
 	}
 	
 
-	dataCollect.prototype.loadEmployeeMemberList = function()
+	dataCollect.prototype.loadSubManagerEmployeeList = function(managernumber)
+	{
+		this.databaseAjaxCall(dataProcessor.employeeMemberListCallback, 
+							  	this.system + "/resources/timewriting/managerdata/" + managernumber + "/",
+							 	function() { $.mobile.showPageLoadingMsg(); }, 
+							  	function() { $.mobile.hidePageLoadingMsg(); });
+	}
+
+
+	dataCollect.prototype.loadManagerEmployeeList = function()
 	{
 		this.databaseAjaxCall(dataProcessor.employeeMemberListCallback, 
 							  	this.system + "/resources/timewriting/managerdata/",
@@ -24,13 +33,19 @@
 
 	dataCollect.prototype.loadManagerDetails = function()
 	{
-		this.databaseAjaxCall(dataProcessor.managerDataCallback, this.system + "/resources/timewriting/userdata");
+		this.databaseAjaxCall(dataProcessor.managerDetailsCallback, this.system + "/resources/timewriting/userdata");
+	}
+
+
+    dataCollect.prototype.loadSubManagerDetails = function(employeenumber)
+	{
+		this.databaseAjaxCall(dataProcessor.subManagerDetailsCallback, this.system + "/resources/timewriting/userdata/" + employeenumber);
 	}
 	
 
-	dataCollect.prototype.loadEmployeeDetails = function(employee)
+	dataCollect.prototype.loadEmployeeDetails = function(employeenumber)
 	{
-		this.databaseAjaxCall(dataProcessor.employeeDataCallback, this.system + "/resources/timewriting/userdata/" + employee);
+		this.databaseAjaxCall(dataProcessor.employeeDataCallback, this.system + "/resources/timewriting/userdata/" + employeenumber);
 	}
 
 
@@ -54,11 +69,10 @@
 		var auth = this.make_base_auth('772481','Dragon123%');
 
 		$.ajax({
-				  //beforeSend: beforeSendFunc,
-			beforeSend:  function(req) {
-				beforeSendFunc,
-				req.setRequestHeader('Authorization', auth);
-			},
+			beforeSend:  //function(req) {
+							//req.setRequestHeader('Authorization', auth);
+						 //},
+						 beforeSendFunc,
 			complete: afterSendFunc,
 			cache: false,
 			type: "GET",
