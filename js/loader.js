@@ -21,11 +21,23 @@
 		dataCollector.loadManagerEmployeeList();
 	}
 
-	function displaySubManager(managerNumber)
+	function displaySubManager(managerNumber, index)
 	{
-		$("#submgrtxt").css('visibility', 'visible');
-		dataCollector.loadSubManagerDetails(managerNumber);
 		$('ul#emplistview').empty();
+
+		var mgr = dataProcessor.getEmployeeListData(index);
+
+		$('ul#emplistview').append('<li><a id="emplistManager">' +
+		        '<img src="css/images/person_placeholder.png" title="sample"/>' +
+		        '<h3 id="name">'+ mgr.username +'</h3>' +
+		        '<p id="position">'+ mgr.position +'</p>' +
+	        '</a>' +
+	    '</li>');	
+
+	    document.getElementById("emplistManager").style.background = 'rgba(154, 204, 238, 0.4)';
+
+	    $('ul#emplistview').listview('refresh');
+
 		dataCollector.loadSubManagerEmployeeList(managerNumber);
 	}
 

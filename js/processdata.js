@@ -2,6 +2,7 @@
 	function dataProcess(){
 
 		var workData;
+		var employeeList;
 
 		this.getWorkdataForDay = function(day)
 		{
@@ -116,22 +117,27 @@
 		this.employeeMemberListCallback = function(response)
 		{
 			
-			var empData = response;	
-			$('ul#emplistview').empty();
+			employeeList = response;	
+			//$('ul#emplistview').empty();
 			
-	  		for (var i = 0; i < empData.itab.length; i++)
+	  		for (var i = 0; i < employeeList.itab.length; i++)
 			{
-	  			if(empData.itab[i].is_manager == 'X'){
-	  				appendEmployeeToList('displaySubManager(' + empData.itab[i].userid + ');', empData.itab[i].username, empData.itab[i].position, i);
-	  				setListItemColor(i, 'rgba(41, 149, 221, 0.46)');
+	  			if(employeeList.itab[i].is_manager == 'X'){
+	  				appendEmployeeToList('displaySubManager(' + employeeList.itab[i].userid + ',' + i + ');', employeeList.itab[i].username, employeeList.itab[i].position, i);
+	  				//setListItemColor(i, 'rgba(41, 149, 221, 0.4)');
 	  			}
 	  			else{
-	  				appendEmployeeToList('displayCalendarPage(' + empData.itab[i].userid + ');', empData.itab[i].username, empData.itab[i].position, i);
+	  				appendEmployeeToList('displayCalendarPage(' + employeeList.itab[i].userid + ');', employeeList.itab[i].username, employeeList.itab[i].position, i);
 	  			}
 			}
 	  		
 			$('ul#emplistview').listview('refresh');
 
+		}
+
+		this.getEmployeeListData = function(index)
+		{
+			return employeeList.itab[index];
 		}
 
 	}
