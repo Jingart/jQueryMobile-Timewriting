@@ -91,6 +91,16 @@
 			$("li#position_emp").html(response.position);
 			
 		}
+
+
+		this.employeeDataCallbackError = function(response)
+		{
+			
+			$("li#perno_emp").html("");
+			$("li#name_emp").html("");
+			$("li#position_emp").html("");
+			
+		}
 		
 
 		this.managerDetailsCallback = function(response)
@@ -123,11 +133,13 @@
 	  		for (var i = 0; i < employeeList.itab.length; i++)
 			{
 	  			if(employeeList.itab[i].is_manager == 'X'){
-	  				appendEmployeeToList('displaySubManager(' + employeeList.itab[i].userid + ',' + i + ');', employeeList.itab[i].username, employeeList.itab[i].position, i);
+	  				appendEmployeeToList('displaySubManager(' + employeeList.itab[i].userid + ',' + i + ');', employeeList.itab[i], i);
+	  				//appendEmployeeToList('displaySubManager(' + employeeList.itab[i].userid + ',' + i + ');', employeeList.itab[i].username, employeeList.itab[i].position, i);
 	  				//setListItemColor(i, 'rgba(41, 149, 221, 0.4)');
 	  			}
 	  			else{
-	  				appendEmployeeToList('displayCalendarPage(' + employeeList.itab[i].userid + ');', employeeList.itab[i].username, employeeList.itab[i].position, i);
+	  				appendEmployeeToList('displayCalendarPage(' + employeeList.itab[i].userid + ');', employeeList.itab[i], i);
+	  				//appendEmployeeToList('displayCalendarPage(' + employeeList.itab[i].userid + ');', employeeList.itab[i].username, employeeList.itab[i].position, i);
 	  			}
 			}
 	  		

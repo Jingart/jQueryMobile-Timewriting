@@ -8,14 +8,33 @@
 	}
 
 
-	appendEmployeeToList = function(onClickFunction, employeeName, employeePosition, index){
-	
+	loadUserImage = function(shortname){
+		//var wrap = $('<p class="imagewrapper"></p>');
+		var img = $('<img id="userimage" src="http://mysite.statoil.com/User%20Photos/Profile%20Pictures/STATOIL-NET_'+shortname+'_LThumb.jpg"/>');
+
+		$(img).bind({
+		    //load: function() {},
+		    error: function() {
+		        $(this).unbind("error").attr("src", "css/images/person_placeholder2.png");
+		    }
+		});
+
+		//$(wrap).append(img);
+
+		return img;
+	}
+
+
+	appendEmployeeToList = function(onClickFunction, employee, index){
+
 		$('ul#emplistview').append('<li><a id="emplistitem'+index+'" onClick="' + onClickFunction + '">' +
-		        '<img src="css/images/person_placeholder.png" title="sample"/>' +
-		        '<h3 id="name">'+ employeeName +'</h3>' +
-		        '<p id="position">'+ employeePosition +'</p>' +
+		        '<h3 id="name">'+ employee.username +'</h3>' +
+		        '<p id="position">'+ employee.position +'</p>' +
 	        '</a>' +
-	    '</li>');	
+	    '</li>');
+
+		var userImage = loadUserImage(employee.shortname);
+	    $("#emplistitem" + index).append(userImage);
 	}
 
 

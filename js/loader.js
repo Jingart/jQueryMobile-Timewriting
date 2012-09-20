@@ -27,14 +27,15 @@
 
 		var mgr = dataProcessor.getEmployeeListData(index);
 
-		$('ul#emplistview').append('<li><a id="emplistManager">' +
-		        '<img src="css/images/person_placeholder.png" title="sample"/>' +
+		$('ul#emplistview').append('<li id="emplistManager">' +
 		        '<h3 id="name">'+ mgr.username +'</h3>' +
 		        '<p id="position">'+ mgr.position +'</p>' +
-	        '</a>' +
-	    '</li>');	
+	    	'</li>');	
 
-	    document.getElementById("emplistManager").style.background = 'rgba(154, 204, 238, 0.4)';
+	    var userImage = loadUserImage(mgr.shortname);
+	    $("#emplistManager").append(userImage);
+	    $('ul#emplistview').append('<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-c"></li>');
+	    //document.getElementById("emplistManager").style.background = 'rgba(154, 204, 238, 0.4)';
 
 	    $('ul#emplistview').listview('refresh');
 

@@ -1,3 +1,28 @@
+.imagewrapper
+{
+/*
+        float: left; 
+        width: 80px; height: 80px;
+        text-align: center; 
+        vertical-align: middle;
+
+        position: absolute;
+        left: 1px;
+        top: 0;
+        max-height: 80px;
+        max-width: 80px;
+        vertical-align: middle;*/
+}
+
+
+#userimage
+{
+  min-height: 70px;
+  width: 70px;
+  vertical-align: middle;
+}
+
+
 .ui-btn-inner 
 { 
 	padding: .6em 8px;

@@ -45,7 +45,7 @@
 
 	dataCollect.prototype.loadEmployeeDetails = function(employeenumber)
 	{
-		this.databaseAjaxCall(dataProcessor.employeeDataCallback, this.system + "/resources/timewriting/userdata/" + employeenumber);
+		this.databaseAjaxCall(dataProcessor.employeeDataCallback, this.system + "/resources/timewriting/userdata/" + employeenumber, dataProcessor.employeeDataCallbackError);
 	}
 
 
@@ -63,10 +63,10 @@
 	}
 	 
 	
-	dataCollect.prototype.databaseAjaxCall = function(responseFunc, url, beforeSendFunc, afterSendFunc)
+	dataCollect.prototype.databaseAjaxCall = function(responseFunc, url, beforeSendFunc, afterSendFunc, errorFunc)
 	{
 		//var auth = make_base_auth('772481','Warhog123%');
-		var auth = this.make_base_auth('772481','Dragon123%');
+		//var auth = this.make_base_auth('772481','Dragon123%');
 
 		$.ajax({
 			beforeSend:  //function(req) {
@@ -84,6 +84,7 @@
 			    if(jQuery.isEmptyObject( object )){
 			   	   //console.log("204 - empty");
 			   	   //alert("No data found");
+			   	   errorFunc();
 			    }
 			    else{
 				   responseFunc(object);
