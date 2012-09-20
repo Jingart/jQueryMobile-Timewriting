@@ -1,0 +1,52 @@
+.ui-btn-inner 
+{ 
+	padding: .6em 8px;
+	/*display: block; */
+	/*padding: .6em 100%;*/
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap; 
+	position: relative; 
+	zoom: 1; 
+	min-width: 18px;
+	/*max-width: 100%;*/			
+}
+
+
+#listitemheading
+{
+	font-weight:bold;
+}
+
+#listitemvalue
+{
+	font-weight:normal
+}
+
+
+#statusbutton {
+  position:relative;
+  float:right;
+  width: 50px;
+  height: 55px;
+  background-color: #620000;
+  border-radius: 1.65em 1.65em 1.65em 1.65em;
+  /*border: 1px solid #750000;*/
+  padding: 5px;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+  /*box-shadow: 2px 2px 0.5px #111;*/ 
+  /*$('a').buttonMarkup({ shadow: "false" });*/
+ 
+  /*-webkit-box-shadow: 0 0 1.7px 0.6px #000;*/
+  /*-moz-box-shadow: 0 0 1.7px 0.6px #000;*/
+  /*box-shadow: 0 0 1.7px 0.6px #000;*/
+  
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  
+  /*box-shadow: 2px 2px 25px 1.0px #000;*/
+  
+  -webkit-transition: all 1s ease-in-out; 
+  -moz-transition: all 1s ease-in-out; 
+  -o-transition: all 1s ease-in-out; 
+  -ms-transition: all 1s ease-in-out;
+}
