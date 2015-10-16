@@ -64,9 +64,7 @@
 	 
 	
 	dataCollect.prototype.databaseAjaxCall = function(responseFunc, url, beforeSendFunc, afterSendFunc, errorFunc)
-	{
-		//var auth = make_base_auth('772481','Warhog123%');
-		//var auth = this.make_base_auth('772481','Dragon123%');
+	{;
 
 		$.ajax({
 			beforeSend:  //function(req) {
